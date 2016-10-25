@@ -12,7 +12,7 @@ class Photo extends Model
 
     //set fillable
     protected $fillable = [
-      'photo',
+      'path',
     ];
 
     /**
