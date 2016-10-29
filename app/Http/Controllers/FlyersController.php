@@ -43,7 +43,6 @@ class FlyersController extends Controller
         //persist the flyer
         Flyer::create($request->all());
 
-        //show flash message
 
         //redirect back to the form
         return redirect()->back();

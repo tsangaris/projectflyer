@@ -17,6 +17,8 @@
       </div>
     @endif
 
+  
+
     <form action=" {{ route('flyers.store') }}" method="POST" enctype="multipart/form-data" class="col-md-6">
       @include('flyers.form')
     </form>
