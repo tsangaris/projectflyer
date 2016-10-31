@@ -14,6 +14,7 @@
       </div>
 
       <script type="text/javascript" src="/js/libs.js"></script>
-      
+
+      @include('flash')
   </body>
 </html>

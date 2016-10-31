@@ -17,7 +17,7 @@ class FlyersController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -27,6 +27,7 @@ class FlyersController extends Controller
      */
     public function create()
     {
+        flash()->overlay('title biatchez', 'this is a test');
         //show create flyer page
         return view('flyers.create');
     }
@@ -39,11 +40,9 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-
         //persist the flyer
         Flyer::create($request->all());
-
-
+        
         //redirect back to the form
         return redirect()->back();
     }
