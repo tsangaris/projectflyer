@@ -27,7 +27,6 @@ class FlyersController extends Controller
      */
     public function create()
     {
-        flash()->overlay('title biatchez', 'this is a test');
         //show create flyer page
         return view('flyers.create');
     }
@@ -42,7 +41,10 @@ class FlyersController extends Controller
     {
         //persist the flyer
         Flyer::create($request->all());
-        
+
+        //show the flash message
+        flash()->success('Success!', 'The flyer is added successfully');
+
         //redirect back to the form
         return redirect()->back();
     }
@@ -53,9 +55,11 @@ class FlyersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($zip, $street)
     {
-        //
+      $flyer = Flyer::locatedAt($zip, $street)->first();
+
+      return view('flyers.show', compact('flyer'));
     }
 
     /**
