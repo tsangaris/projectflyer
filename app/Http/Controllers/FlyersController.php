@@ -63,6 +63,11 @@ class FlyersController extends Controller
       return view('flyers.show', compact('flyer'));
     }
 
+    public function addPhoto(Request $request)
+    {
+      dd($request->file('name'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

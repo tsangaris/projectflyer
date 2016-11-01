@@ -17,9 +17,11 @@ elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js')
        .scripts([
-         'libs/sweetalert-dev.js'
+         'libs/sweetalert-dev.js',
+         'libs/dropzone.js'
        ], './public/js/libs.js')
        .styles([
-         'libs/sweetalert.css'
+         'libs/sweetalert.css',
+         'libs/dropzone.css'
        ], './public/css/libs.css')
 });

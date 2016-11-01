@@ -10,4 +10,12 @@
     {!! $flyer->description !!}
   </div>
 
+
+  <form class="dropzone"
+        action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos"
+        method="POST">
+        
+      {{ csrf_field() }}
+  </form>
+
 @endsection
