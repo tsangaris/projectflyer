@@ -52,7 +52,8 @@ class FlyersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param   int  $zip
+     * @param   text $street
      * @return \Illuminate\Http\Response
      */
     public function show($zip, $street)

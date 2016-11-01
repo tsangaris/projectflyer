@@ -36,4 +36,25 @@ class Flyer extends Model
 
       return $query->where(compact('zip', 'street'));
     }
+
+    /**
+    * Accessor for price column
+    * @param integer $value
+    * @return integer
+    */
+    public function getPriceAttribute($value)
+    {
+
+      return '$ ' . number_format($value);
+    }
+
+    /**
+    * Accessor for description column
+    * @param text $value
+    * @return text
+    */
+    public function getDescriptionAttribute($value)
+    {
+      return nl2br($value);
+    }
 }
