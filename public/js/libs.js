@@ -3050,4 +3050,10 @@ exports.colorLuminance = colorLuminance;
   contentLoaded(window, Dropzone._autoDiscoverFunction);
 
 }).call(this);
+Dropzone.options.addPhotosForm = {
+  paramName: 'photo',
+  maxFilesize: 3,
+  acceptedFiles: '.jpg , .jpeg'
+};
+
 //# sourceMappingURL=libs.js.map

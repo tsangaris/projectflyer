@@ -5769,4 +5769,7 @@ button.close {
 .form-control {
   height: 40px; }
 
+img {
+  max-width: 100%; }
+
 /*# sourceMappingURL=app.css.map */

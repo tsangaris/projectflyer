@@ -18,7 +18,8 @@ elixir(mix => {
        .webpack('app.js')
        .scripts([
          'libs/sweetalert-dev.js',
-         'libs/dropzone.js'
+         'libs/dropzone.js',
+         'custom/custom.js'
        ], './public/js/libs.js')
        .styles([
          'libs/sweetalert.css',
