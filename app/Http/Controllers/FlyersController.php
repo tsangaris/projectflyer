@@ -8,6 +8,8 @@ use App\Http\Requests\FlyerRequest;
 
 use App\Flyer;
 
+use App\Photo;
+
 class FlyersController extends Controller
 {
     /**
@@ -39,6 +41,8 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
+        dd('sdfsf');
+        
         //persist the flyer
         Flyer::create($request->all());
 
@@ -58,32 +62,28 @@ class FlyersController extends Controller
      */
     public function show($zip, $street)
     {
-      $flyer = Flyer::locatedAt($zip, $street)->first();
+      $flyer = Flyer::locatedAt($zip, $street);
 
       return view('flyers.show', compact('flyer'));
     }
 
+    /**
+    * Apply the photo to the referenced flyer
+    * @param string $zip
+    * @param string $street
+    * @param Request $request
+    */
     public function addPhoto($zip, $street, Request $request)
     {
 
       $this->validate($request , [
-        'photo' => 'required|mimes:jpg, jpeg, png'
+        'photo' => 'required|mimes:jpg,jpeg,png'
       ]);
-      
-      $file = $request->file('photo');
 
-      //name the file with a unique name using UNIX timestamp as a prefix
-      $name = time() .  $file->getClientOriginalName();
+      $photo = Photo::fromForm($request->file('photo'));
 
-      $file->move('flyers/photos', $name);
+      Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
-      $flyer = Flyer::locatedAt($zip, $street)->first();
-
-      $flyer->photos()->create(['path' => '/flyers/photos/' . $name]);
-
-      //$flyer->photos->create(['path' => 'flyers/photos/{$name}']);
-
-      return 'Done';
     }
 
     /**

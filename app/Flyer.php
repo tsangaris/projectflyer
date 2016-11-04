@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Photo;
+
 
 class Flyer extends Model
 {
@@ -30,11 +32,17 @@ class Flyer extends Model
       return $this->hasMany('App\Photo');
     }
 
-    public function scopeLocatedAt($query, $zip, $street)
+    public static function locatedAt($zip, $street)
     {
       $street = str_replace('-', ' ', $street);
 
-      return $query->where(compact('zip', 'street'));
+      return static::where(compact('zip', 'street'))->first();
+    }
+
+    public function addPhoto(Photo $photo)
+    {
+      //use the relationship to save the photo instance
+      return $this->photos()->save($photo);
     }
 
     /**

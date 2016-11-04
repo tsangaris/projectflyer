@@ -29,7 +29,7 @@
 
   <form id="addPhotosForm"
         class="dropzone"
-        action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos"
+        action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}"
         method="POST"
         >
 
