@@ -12,9 +12,9 @@ use App\Photo;
 
 class FlyersController extends Controller
 {
-
     public function __construct()
     {
+      //you need to be authenticated in order to visit any of the routes connected with these methods
       $this->middleware('auth');
     }
 
