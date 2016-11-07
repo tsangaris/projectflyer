@@ -17,7 +17,7 @@ class Photo extends Model
     ];
 
     //where the flyer photos will be stored
-    protected $baseDir = 'flyers/photos';
+    protected $baseDir = 'flyer/photos';
 
     /**
     * A photo belongs to one Flyer
