@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
@@ -13,7 +14,9 @@ class Photo extends Model
 
     //set fillable
     protected $fillable = [
+      'name',
       'path',
+      'thumbnail_path',
     ];
 
     //where the flyer photos will be stored
@@ -28,22 +31,49 @@ class Photo extends Model
       return $this->belonsTo('App\Flyer');
     }
 
-    public static function fromForm(UploadedFile $file)
+    /**
+    * Build a new photo instance from a file upload
+    * @param string $name
+    * @return self
+    */
+    public static function named($name)
     {
       $photo = new static;
 
-      //name the file with a unique name using UNIX timestamp as a prefix
-      $name = time() .  $file->getClientOriginalName();
-
-      //set the path column to the correct value
-      //remember that Eloquent uses the table columns of the model as variables
-      $photo->path = '/' . $photo->baseDir . '/' . $name;
-
-      //maybe is not the responsibility of the model to move the photo to the storage
-      //we could have done it in the controller
-      $file->move($photo->baseDir, $name);
-
       //we need to return the photo instance since we are going to use it in the addPhoto() method
-      return $photo;
+      return $photo->saveAs($name);
+    }
+
+    protected function saveAs($name)
+    {
+      $this->name = sprintf('%d-%s', time(), $name);
+      $this->path = sprintf('%s/%s', $this->baseDir, $this->name);
+      $this->thumbnail_path = sprintf('%s/tn-%s', $this->baseDir, $this->name);
+
+      return $this;
+    }
+
+    /**
+    * moves the uploaded file to the desired location
+    * @param UploadedFile $file
+    * @return void
+    */
+    public function move(UploadedFile $file)
+    {
+      $file->move($this->baseDir, $this->name);
+
+      $this->makeThumbnail();
+
+      return $this;
+    }
+
+    /**
+    *
+    * get the image, fit, resize and crop into 200x200px, and then store it
+    *
+    **/
+    protected function makeThumbnail()
+    {
+      Image::make($this->path)->fit(200)->save($this->thumbnail_path);
     }
 }

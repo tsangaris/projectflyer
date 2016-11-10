@@ -10,6 +10,8 @@ use App\Flyer;
 
 use App\Photo;
 
+use Illuminate\Http\UploadedFile;
+
 class FlyersController extends Controller
 {
     public function __construct()
@@ -84,10 +86,16 @@ class FlyersController extends Controller
         'photo' => 'required|mimes:jpg,jpeg,png'
       ]);
 
-      $photo = Photo::fromForm($request->file('photo'));
+      $photo = $this->makePhoto($request->file('photo'));
 
       Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
+    }
+
+    public function makePhoto(UploadedFile $file)
+    {
+      return Photo::named($file->getClientOriginalName())
+                    ->move($file);
     }
 
     /**
