@@ -15,16 +15,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         @if (!Auth::check())
-        <ul class="nav navbar-nav">
           <li><a href="{{ url('login') }}">Login</a></li>
           <li><a href="{{ url('register') }}">Register</a></li>
-        </ul>
         @endif
 
         @if (Auth::check())
-        <ul class="nav navbar-nav">
+          <li><a>{{ Auth::user()->name }}</a></li>
           <li><a href="{{ url('logout') }}">Logout</a></li>
-        </ul>
         @endif
       </ul>
     </div><!-- /.navbar-collapse -->

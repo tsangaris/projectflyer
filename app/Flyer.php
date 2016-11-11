@@ -23,6 +23,8 @@ class Flyer extends Model
       'description',
     ];
 
+    protected $currency = '$';
+
     /**
     * A flyer is composed of many photos
     * @return Illuminate\Database\Eloquent\Relations\hasMany
@@ -53,7 +55,7 @@ class Flyer extends Model
     public function getPriceAttribute($value)
     {
 
-      return '$ ' . number_format($value);
+      return $this->currency . number_format($value);
     }
 
     /**
