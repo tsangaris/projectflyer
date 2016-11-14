@@ -12,6 +12,8 @@ use App\Photo;
 
 use Illuminate\Http\UploadedFile;
 
+use App\Http\Requests\ChangeFlyerRequest;
+
 class FlyersController extends Controller
 {
     public function __construct()
@@ -49,6 +51,7 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
+
         //persist the flyer
         Flyer::create($request->all());
 
@@ -79,18 +82,15 @@ class FlyersController extends Controller
     * @param string $street
     * @param Request $request
     */
-    public function addPhoto($zip, $street, Request $request)
+    public function addPhoto($zip, $street, ChangeFlyerRequest $request)
     {
-
-      $this->validate($request , [
-        'photo' => 'required|mimes:jpg,jpeg,png'
-      ]);
-
       $photo = $this->makePhoto($request->file('photo'));
 
       Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
     }
+
+
 
     public function makePhoto(UploadedFile $file)
     {

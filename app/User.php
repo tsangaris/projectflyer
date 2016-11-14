@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+    *
+    * A user has many flyers
+    *
+    **/
+    public function flyers()
+    {
+      return $this->hasMany('App\Flyer');
+    }
 }

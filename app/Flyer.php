@@ -14,6 +14,7 @@ class Flyer extends Model
     * @return array
     */
     protected $fillable = [
+      'user_id',
       'street',
       'city',
       'state',
@@ -34,6 +35,16 @@ class Flyer extends Model
       return $this->hasMany('App\Photo');
     }
 
+    /**
+    *
+    * A flyer belongs to a user
+    *
+    **/
+    public function user()
+    {
+      return $this->belongsTo('App\User');
+    }
+
     public static function locatedAt($zip, $street)
     {
       $street = str_replace('-', ' ', $street);
@@ -45,6 +56,16 @@ class Flyer extends Model
     {
       //use the relationship to save the photo instance
       return $this->photos()->save($photo);
+    }
+
+    /**
+    * Checks if the given user created the flyer
+    * @param User $user
+    * @return boolean
+    */
+    public function ownedBy(User $user)
+    {
+      return $this->user_id == $user->id;
     }
 
     /**
